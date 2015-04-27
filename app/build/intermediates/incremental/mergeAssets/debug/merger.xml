@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\src\main\assets"><file name="Stopwords.txt" path="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\src\main\assets\Stopwords.txt"/></source></dataSet><dataSet config="debug"><source path="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\src\debug\assets"/></dataSet></merger>

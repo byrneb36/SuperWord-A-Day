@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Brendan\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-db3c2c3f9d9e7216b8b63b2d27460bb23f34c355.jar" />
+    </item>
+    <item
+        jar="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\libs\jsoup-1.7.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ab1f22cadc2f8b514e55ba368f5128056fe304da">
+        <dex dex="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-22e1657ce287fba4db16b8eefd82856e5e116baa.jar" />
+    </item>
+    <item
+        jar="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\libs\commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="659861b4acde07a0527211e40d256119face1d15">
+        <dex dex="C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-c8f4a868dcdc38616b2332e38a11adadbf32e200.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,231 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".OptionsActivity" >
+
+    <TextView
+        android:id="@+id/optionsText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/options_text1" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/optionsText1"
+        android:layout_below="@+id/optionsText1"
+        android:layout_marginLeft="30dp"
+        android:entries="@array/numOfWords" />
+
+    <RadioButton
+        android:id="@+id/radioButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/radioButton2"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/radioButton2"
+        android:text="RadioButton" />
+
+    <RadioButton
+        android:id="@+id/radioButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/radioButton4"
+        android:layout_alignBottom="@+id/radioButton4"
+        android:layout_alignParentLeft="true"
+        android:text="RadioButton" />
+
+    <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/radioButton3"
+        android:layout_below="@+id/spinner1"
+        android:text="RadioButton" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/radioButton1"
+        android:layout_alignBottom="@+id/radioButton1"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/radioButton1"
+        android:text="RadioButton" />
+
+    <TextView
+        android:id="@+id/intervalsOptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/radioButton4"
+        android:layout_below="@+id/radioButton3"
+        android:text="@string/intervals_text" />
+
+    <RelativeLayout
+        android:id="@+id/revisionLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/intervalsOptionText" >
+
+        <TextView
+            android:id="@+id/revisionText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignBaseline="@+id/revision_edit1"
+	        android:layout_alignBottom="@+id/revision_edit1"
+            android:text="@string/revision_interval1" />
+	
+	    <TextView
+	        android:id="@+id/revisionTextDays"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/revision_edit1"
+	        android:layout_alignBottom="@+id/revision_edit1"
+	        android:layout_toRightOf="@+id/revision_edit1"
+	        android:text="@string/revision_text_days" />
+
+	    <EditText
+	        android:id="@+id/revision_edit1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/revisionText1"
+	        android:inputType="number"
+	        android:text="@string/one"
+	        android:textAppearance="?android:attr/textAppearanceSmall" >
+
+	    </EditText>
+    
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/revisionLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/revisionLayout1" >
+
+        <TextView
+            android:id="@+id/revisionText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignBaseline="@+id/revision_edit2"
+	        android:layout_alignBottom="@+id/revision_edit2"
+            android:text="@string/revision_interval2" />
+	
+	    <TextView
+	        android:id="@id/revisionTextDays"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/revision_edit2"
+	        android:layout_alignBottom="@+id/revision_edit2"
+	        android:layout_toRightOf="@+id/revision_edit2"
+	        android:text="@string/revision_text_days" />
+
+	    <EditText
+	        android:id="@+id/revision_edit2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/revisionText2"
+	        android:inputType="number"
+	        android:text="@string/seven"
+	        android:textAppearance="?android:attr/textAppearanceSmall" >
+
+	    </EditText>
+    </RelativeLayout>
+        <RelativeLayout
+        android:id="@+id/revisionLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/revisionLayout2" >
+
+        <TextView
+            android:id="@+id/revisionText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignBaseline="@+id/revision_edit3"
+	        android:layout_alignBottom="@+id/revision_edit3"
+            android:text="@string/revision_interval3" />
+	
+	    <TextView
+	        android:id="@id/revisionTextDays"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/revision_edit3"
+	        android:layout_alignBottom="@+id/revision_edit3"
+	        android:layout_toRightOf="@+id/revision_edit3"
+	        android:text="@string/revision_text_days" />
+
+	    <EditText
+	        android:id="@+id/revision_edit3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/revisionText3"
+	        android:inputType="number"
+	        android:text="@string/twenty_eight"
+	        android:textAppearance="?android:attr/textAppearanceSmall" >
+
+	    </EditText>
+    </RelativeLayout>
+        <RelativeLayout
+        android:id="@+id/revisionLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/revisionLayout3" >
+
+        <TextView
+            android:id="@+id/revisionText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignBaseline="@+id/revision_edit4"
+	        android:layout_alignBottom="@+id/revision_edit4"
+            android:text="@string/revision_interval4" />
+	
+	    <TextView
+	        android:id="@id/revisionTextDays"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/revision_edit4"
+	        android:layout_alignBottom="@+id/revision_edit4"
+	        android:layout_toRightOf="@+id/revision_edit4"
+	        android:text="@string/revision_text_days" />
+
+	    <EditText
+	        android:id="@+id/revision_edit4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/revisionText4"
+	        android:inputType="number"
+	        android:text="@string/one_hundred_and_sixty_eight"
+	        android:textAppearance="?android:attr/textAppearanceSmall" >
+
+	    </EditText>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Super Word-A-Day</string>
+    <string name="success">Successfully reached Today\'s Words</string>
+    <string name="action_settings">Settings</string>
+    <string name="super_word_a_day">Super Word-A-Day</string>
+    <string name="todays_words_button">Today\'s Words</string>
+    <string name="word_archive_button">Word Archive</string>
+    <string name="todays_revision_button">Today\'s Revision</string>
+    <string name="options_button">Options</string>
+    <string name="test_driver_button1">Analyze Results Test Driver</string>
+    <string name="test_driver_button2">Word Archive Test Driver</string>
+    <string name="word_archive_clear">Clear SharedPrefs, Internal Storage Files</string>
+    <string name="options_text1">Set number of words to learn per day:</string>
+    <string name="intervals_text">Set number of days between each revision of a word (0 means no revision is required):</string>
+    <string name="revision_interval1">First revision after</string>
+    <string name="revision_interval2">Second revision after</string>
+    <string name="revision_interval3">Third revision after</string>
+    <string name="revision_interval4">Fourth revision after</string>
+    <string name="revision_text_days">day(s).</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="seven">7</string>
+    <string name="twenty_eight">28</string>
+    <string name="one_hundred_and_sixty_eight">168</string>
+    <string name="title_activity_todays_words">TodaysWords</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="button_text">Take the test!</string>
+    <string name="TextView">Text View</string>
+    <string name="source">Source</string>
+    <string name="definition">Definition</string>
+    <string name="handle_drawable">Drawable handle</string>
+    <string name="title_activity_fragment_pager_support">FragmentPagerSupport</string>
+    <string name="title_activity_word_viewer">WordViewer</string>
+    <string name="title_activity_options">OptionsActivity</string>
+    <string name="speak">Speak Now</string>
+    <string name="word_alternatives">Choose An Alternative</string>
+    <string name="submit_all">Submit All</string>
+    <string name="word_archive_test1">Test Case 1</string>
+    <string name="analyze_results_driver_test2">Test Case 2</string>
+
+    <string-array name="numOfWords">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    <string name="title_activity_word_archive">WordArchiveActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_results">ResultsActivity</string>
+    <string name="title_activity_analyze_results">AnalyzeResultsActivity</string>
+    <string name="title_activity_analyze_results_driver">AnalyzeResultsDriverActivity</string>
+    <string name="title_activity_todays_revision">TodaysRevisionActivity</string>
+    <string name="title_activity_word_archive_driver">WordArchiveDriverActivity</string>
+
+</resources>

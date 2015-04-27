@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultsActivity" >
+
+    
+    <SlidingDrawer
+        android:id="@+id/slidingDrawer2"     
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:content="@+id/content2"
+        android:handle="@+id/handle2"
+        android:visibility="invisible"
+        android:topOffset="320dp" > <!-- prevents handle from opening all the way to the top -->
+
+        <ImageView
+            android:id="@+id/handle2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="@string/handle_drawable"
+            android:src="@drawable/tray_handle_normal"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/content2"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="@string/submit_all"
+            android:onClick="showResults" />
+        
+    </SlidingDrawer>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:ems="10"
+        android:text="Edit Text 2" >
+
+        <requestFocus />
+    </EditText>
+  
+</RelativeLayout>

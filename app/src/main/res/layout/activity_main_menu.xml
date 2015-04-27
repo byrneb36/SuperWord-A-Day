@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainMenuActivity" >
+
+    <TextView
+        android:id="@+id/word1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/super_word_a_day"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/todaysWordsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/word1"
+        android:onClick="todaysWords"
+        android:text="@string/todays_words_button" />
+
+    <Button
+        android:id="@+id/optionsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wordArchiveButton"
+        android:layout_alignRight="@+id/wordArchiveButton"
+        android:layout_below="@+id/wordArchiveButton"
+        android:onClick="options"
+        android:text="@string/options_button" />
+
+    <Button
+        android:id="@+id/analyzeResultsTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/optionsButton"
+        android:layout_alignRight="@+id/optionsButton"
+        android:layout_below="@+id/optionsButton"
+        android:onClick="analyzeResultsDriver"
+        android:text="@string/test_driver_button1" />
+
+    <Button
+        android:id="@+id/todaysRevisionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/todaysWordsButton"
+        android:layout_alignRight="@+id/todaysWordsButton"
+        android:layout_below="@+id/todaysWordsButton"
+        android:onClick="todaysRevision"
+        android:text="@string/todays_revision_button" />
+
+    <Button
+        android:id="@+id/wordArchiveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/todaysRevisionButton"
+        android:layout_alignRight="@+id/todaysRevisionButton"
+        android:layout_below="@+id/todaysRevisionButton"
+        android:onClick="wordArchive"
+        android:text="@string/word_archive_button" />
+
+    <Button
+        android:id="@+id/wordArchiveTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/analyzeResultsTestButton"
+        android:layout_alignRight="@+id/analyzeResultsTestButton"
+        android:layout_below="@+id/analyzeResultsTestButton"
+        android:onClick="wordArchiveDriver"
+        android:text="@string/test_driver_button2" />
+
+</RelativeLayout>

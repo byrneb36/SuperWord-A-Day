@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:text="TextView"
+        android:textSize="25sp" />
+    
+</LinearLayout>
+<!-- From: file:/C:/Users/Brendan/AndroidstudioProjects/SuperWord-A-Day/app/src/main/res/layout/archive_row_layout_c.xml -->
