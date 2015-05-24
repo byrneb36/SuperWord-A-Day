@@ -21,7 +21,7 @@ public class MyAdapter extends FragmentPagerAdapter {
         this.source = source;
         if(numOfWords == -1) // this indicates that the source is TodaysWords
         {
-        	Log.i("MyAdapter", "numOfWords equals -1");
+        	Log.i("MyAdapter", "numOfWords equals -1 (source = TodaysWords)");
         	setCount(); 
         }
         else

@@ -1,17 +1,28 @@
 package com.dcu.superword_a_day;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.IllegalFormatCodePointException;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
@@ -19,7 +30,39 @@ public class MyFragment extends Fragment {
     int mNum;
     private String file_name1;
     private String mSource;
-    
+    private View my_fragment_view;
+    private String thisFragmentsWord;
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle wordsWithPercentages = intent.getBundleExtra("wordsWithPercentages");
+            Log.d("receiver", "Got message: " + wordsWithPercentages.toString());
+            WordViewer.percentages_received_flag = true;
+            // display the percentage associated with the current fragment
+            int wordPercentage = wordsWithPercentages.getInt(thisFragmentsWord);
+            ProgressBar percLoadingBar = (ProgressBar) my_fragment_view.findViewById(R.id.percentageLoadingBar);
+            percLoadingBar.setVisibility(View.GONE);
+            TextView percTextView = (TextView) my_fragment_view.findViewById(R.id.percentageTextView);
+            percTextView.setText("" + wordPercentage + "%");
+            percTextView.setVisibility(View.VISIBLE);
+
+            // save all percentages to SharedPreferences
+            SharedPreferences percentagesFile = getActivity().getApplicationContext()
+                    .getSharedPreferences(Constants.DIFFICULTY_PERCENTAGES_FILE, 0);
+            SharedPreferences.Editor editor = percentagesFile.edit();
+            Set<String> allKeys = wordsWithPercentages.keySet();
+            Iterator<String> it = allKeys.iterator();
+            String nextKey;
+            while(it.hasNext()) {
+                nextKey = it.next();
+                editor.putInt(nextKey, wordsWithPercentages.getInt(nextKey));
+            }
+            editor.commit();
+        }
+    };
+
     static MyFragment newInstance(int num, String source) {
     	Log.i("MyFragment", "inside MyFragment newinstance");
     	MyFragment f = new MyFragment();
@@ -48,15 +91,16 @@ public class MyFragment extends Fragment {
         	file_name1 = Constants.WORD_DATA_FILE;
         else
         	Log.i("MyFragment", "SOURCE NOT RECOGNIZED");
+        Log.i("MyFragment onCreate file_name1: ", file_name1);
     }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_my_fragment, container, false);
-        View tv = v.findViewById(R.id.text1);
+        my_fragment_view = inflater.inflate(R.layout.fragment_my_fragment, container, false);
+        View tv = my_fragment_view.findViewById(R.id.text1);
         
-    	final SlidingDrawer s = (SlidingDrawer) v.findViewById(R.id.slidingDrawer1);	
+    	final SlidingDrawer s = (SlidingDrawer) my_fragment_view.findViewById(R.id.slidingDrawer1);	
     	
         ((TextView)tv).setText("Fragment #" + mNum);
     	LinkedList<String> wordAndDefinition;
@@ -71,18 +115,53 @@ public class MyFragment extends Fragment {
         	System.out.println("FILE READ EXCEPTION");
     		e.printStackTrace();
     	}
+
+        /******************* checking to see if the difficulty percentages have already been saved *********************/
+        if((Constants.SOURCE_TODAYS_WORDS).equals(mSource)) {
+            Log.i("MyFragment", "inside diff perc check");
+            if(WordViewer.percentages_received_flag == true) {
+                displayPercentage(temp);
+            }
+            else {
+                // otherwise, try registering the broadcast receiver
+                Log.i("MyFragment", "registering broadcast receiver");
+                try {
+                    LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).registerReceiver(mMessageReceiver,
+                            new IntentFilter("difficulty-percentages-ready"));
+                }
+                catch (IllegalArgumentException e) {
+                    Log.i("MyFragment", "EXCEPTION: BROADCAST RECEIVER ALREADY REGISTERED");
+                }
+            }
+        }
+        else {
+            Log.i("MyFragment", "diff perc check: source not today's words");
+            File f = new File("/data/data/com.dcu.superword_a_day/shared_prefs/" + Constants.DIFFICULTY_PERCENTAGES_FILE + ".xml");
+            if(f.exists()) {
+                displayPercentage(temp);
+            }
+            else {
+                // otherwise, just remove the progress bar
+                ProgressBar percLoadingBar = (ProgressBar) my_fragment_view.findViewById(R.id.percentageLoadingBar);
+                percLoadingBar.setVisibility(View.GONE);
+            }
+        }
+
+        /***************************************************************************************************************/
+
     	wordAndDefinition = temp.get(mNum);
         
         if(wordAndDefinition != null) {
-	        TextView word = (TextView) v.findViewById(R.id.word1);
-	        word.setText(wordAndDefinition.get(0).toString());
+	        TextView word = (TextView) my_fragment_view.findViewById(R.id.word1);
+            thisFragmentsWord = wordAndDefinition.get(0).toString();
+	        word.setText(thisFragmentsWord);
 	        System.out.println("syro 2" + wordAndDefinition.get(0).toString());
 	        
 	        
-	        TextView source = (TextView) v.findViewById(R.id.source1);
+	        TextView source = (TextView) my_fragment_view.findViewById(R.id.source1);
 	        source.setText(wordAndDefinition.get(1).toString());
 	        
-	        TextView abbrev = (TextView) v.findViewById(R.id.definition1);
+	        TextView abbrev = (TextView) my_fragment_view.findViewById(R.id.definition1);
 	        for(int i = 2; i < wordAndDefinition.size(); i++) {
 	        	System.out.println("syro: " + wordAndDefinition.get(i).toString());
 	        	abbrev.append(wordAndDefinition.get(i).toString());
@@ -121,13 +200,13 @@ public class MyFragment extends Fragment {
                 }
                 });
 
-            v.setOnTouchListener(new View.OnTouchListener() {
+            my_fragment_view.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     return gesture.onTouchEvent(event);
                 }
             });
-        return v;
+        return my_fragment_view;
     }
 
     @Override
@@ -136,5 +215,26 @@ public class MyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
-    
+
+    @Override
+    public void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+    private void displayPercentage(LinkedList<LinkedList<String>> temp) {
+        SharedPreferences percentagesFile = getActivity().getApplicationContext()
+                .getSharedPreferences(Constants.DIFFICULTY_PERCENTAGES_FILE, 0);
+        // get the percentage associated with the current fragment's word
+        int wordPercentage = percentagesFile.getInt((String) temp.get(mNum).get(0), -1);
+        // remove the progress bar and display the percentage if it's available
+        ProgressBar percLoadingBar = (ProgressBar) my_fragment_view.findViewById(R.id.percentageLoadingBar);
+        percLoadingBar.setVisibility(View.GONE);
+        if(wordPercentage != -1) {
+            TextView percTextView = (TextView) my_fragment_view.findViewById(R.id.percentageTextView);
+            percTextView.setText("" + wordPercentage);
+            percTextView.setVisibility(View.VISIBLE);
+        }
+    }
 }

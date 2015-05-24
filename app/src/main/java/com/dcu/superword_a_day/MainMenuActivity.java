@@ -17,6 +17,11 @@ public class MainMenuActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
+        Intent intent = getIntent();
+        if("AnalyzeResultsActivity".equals(intent.getStringExtra("callingActivity"))) {
+            // upload results to database
+        }
+
 		mTodaysRevision = new TodaysRevision(this);
     	mTodaysRevision.loadRevisionIntervals();
     	// if there are no words to revise, don't show the Today's Revision button

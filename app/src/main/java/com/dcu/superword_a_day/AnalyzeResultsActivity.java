@@ -4,26 +4,39 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -289,6 +302,51 @@ public class AnalyzeResultsActivity extends Activity {
 			 resultsList.addFooterView(defAndRecStrings);
 			 resultsList.addFooterView(addPassFailRadioGroup(j));
 		 }
+
+        // adding a submit button that returns the user to the main menu screen and uploads test results to the database
+        Button submit = new Button(this);
+        submit.setText("Submit");
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // contains each word followed by "passed" or "failed"
+                ArrayList<String> uploadData = new ArrayList<String>();
+
+                // saving the words the user has failed so that they can be highlighted in WordArchiveActivity
+                SharedPreferences failedWordsStore = getSharedPreferences(Constants.FAILED_WORDS_FILE, MODE_PRIVATE);
+                HashSet<String> failedWords = new HashSet<String>();
+                for(int i = 0; i < userDefinedResults.length; i++) {
+                    if(!userDefinedResults[i]) {
+                        uploadData.add(wordArray[i]);
+                        uploadData.add("failed");
+                        failedWords.add(wordArray[i]);
+                    }
+                }
+                Log.i("ARA", "Failed words: " + failedWords.toString());
+                SharedPreferences.Editor editor = failedWordsStore.edit();
+                editor.putStringSet("failedWords", failedWords);
+                editor.commit();
+
+                // adding all the words the user has marked as passed or has left unchanged (which are marked passed by default)
+                for(int i = 0; i < wordArray.length; i++) {
+                    if(!uploadData.contains(wordArray[i])) {
+                        uploadData.add(wordArray[i]);
+                        uploadData.add("passed");
+                    }
+                }
+
+                // using an intent service to upload test results to the database
+                Intent uploadService = new Intent(view.getContext(), UploadIntentService.class);
+                uploadService.putStringArrayListExtra("resultsData", uploadData);
+                startService(uploadService);
+
+                // returning to the main  menu
+                Intent intent = new Intent(view.getContext(), MainMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+        resultsList.addFooterView(submit);
+
 		 ArrayAdapter mAdapter = new ArrayAdapter(this, R.layout.activity_analyze_results_row);
 		 resultsList.setAdapter(mAdapter);
 		 Log.i("ARA", "User-defined results: " + Arrays.toString(userDefinedResults));
@@ -319,23 +377,6 @@ public class AnalyzeResultsActivity extends Activity {
 		 return passFailGroup;
 	}
 	
-	// saving the words the user has failed
-	@Override
-	protected void onPause(){
-	    super.onPause();
-		SharedPreferences failedWordsStore = getSharedPreferences(Constants.FAILED_WORDS_FILE, MODE_PRIVATE);
-		HashSet<String> failedWords = new HashSet<String>();
-		for(int i = 0; i < userDefinedResults.length; i++) {
-			if(!userDefinedResults[i]) {
-				failedWords.add(wordArray[i]);
-			}
-		}
-		Log.i("ARA", "Failed words: " + failedWords.toString());
-		SharedPreferences.Editor editor = failedWordsStore.edit();
-		editor.putStringSet("failedWords", failedWords);
-		editor.commit();
-	}
-	
 	
 	private class SemanticSimilarityService extends AsyncTask<Bundle, Void, Void> {
 
@@ -359,6 +400,7 @@ public class AnalyzeResultsActivity extends Activity {
 	   		return null;
         }
 	}
+
 }
 
 

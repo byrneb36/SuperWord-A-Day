@@ -27,20 +27,22 @@ public final class R {
         public static final int tray_handle_normal=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0032;
+        public static final int action_settings=0x7f0a0034;
         public static final int analyzeResultsTestButton=0x7f0a0008;
         public static final int content=0x7f0a0027;
-        public static final int content2=0x7f0a002f;
+        public static final int content2=0x7f0a0031;
         public static final int definition1=0x7f0a002b;
-        public static final int editText2=0x7f0a0031;
-        public static final int empty=0x7f0a002d;
+        public static final int editText2=0x7f0a0033;
+        public static final int empty=0x7f0a002f;
         public static final int handle=0x7f0a0028;
-        public static final int handle2=0x7f0a0030;
+        public static final int handle2=0x7f0a0032;
         public static final int intervalsOptionText=0x7f0a0011;
         public static final int optionsButton=0x7f0a0006;
         public static final int optionsText1=0x7f0a000b;
         public static final int pager=0x7f0a0003;
         public static final int pager2=0x7f0a001f;
+        public static final int percentageLoadingBar=0x7f0a002c;
+        public static final int percentageTextView=0x7f0a002d;
         public static final int progressBar1=0x7f0a0023;
         public static final int radioButton1=0x7f0a0010;
         public static final int radioButton2=0x7f0a000e;
@@ -61,13 +63,13 @@ public final class R {
         public static final int revision_edit3=0x7f0a001b;
         public static final int revision_edit4=0x7f0a001e;
         public static final int slidingDrawer1=0x7f0a0026;
-        public static final int slidingDrawer2=0x7f0a002e;
+        public static final int slidingDrawer2=0x7f0a0030;
         public static final int source1=0x7f0a002a;
         public static final int speakButton=0x7f0a0022;
         public static final int spinner1=0x7f0a000c;
         public static final int testButton1=0x7f0a0002;
         public static final int testButton2=0x7f0a0001;
-        public static final int text=0x7f0a002c;
+        public static final int text=0x7f0a002e;
         public static final int text1=0x7f0a0029;
         public static final int textView1=0x7f0a0020;
         public static final int textView2=0x7f0a0021;

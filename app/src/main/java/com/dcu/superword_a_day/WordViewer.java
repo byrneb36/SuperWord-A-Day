@@ -2,6 +2,7 @@ package com.dcu.superword_a_day;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -19,7 +20,10 @@ import android.util.Log;
 import android.view.View;
 
 public class WordViewer extends FragmentActivity {
-	
+
+    // checked by MyFragment to see if the broadcast receiver has already received the word percentages
+    public static Boolean percentages_received_flag = false;
+
     public static HashMap<String, String> wordAndDefinitions;
     public static String [] wordArray;
     MyAdapter mAdapter;
@@ -68,9 +72,9 @@ public class WordViewer extends FragmentActivity {
     	else {
        	 	wordArray = new String[temp.size()];
     	}
-    	
+    	Log.i("WordViewer sharedPrefNoOfWords: ", "" + sharedPrefNoOfWords);
     	wordAndDefinitions = new HashMap<String, String> ();
-    	for(int i = 0; i < sharedPrefNoOfWords; i++) {
+    	for(int i = 0; i < wordArray.length; i++) {
         	wordArray[i] = temp.get(i).get(0);
         	String definitions = "";
             for(int j = 2; j < temp.get(i).size(); j++) {
@@ -78,12 +82,12 @@ public class WordViewer extends FragmentActivity {
             }
             wordAndDefinitions.put(wordArray[i], definitions);
     	}
-    	Log.i("Word Array", wordArray.toString());
+    	Log.i("Word Array", Arrays.toString(wordArray));
     	
     	// randomize the order of the recital words
     	shuffleArray(wordArray);
     	
-    	Log.i("Shuffled Word Array", wordArray.toString());
+    	Log.i("Shuffled Word Array", Arrays.toString(wordArray));
 
     	
     	Intent intent = new Intent(this, TestActivity.class);
@@ -93,7 +97,7 @@ public class WordViewer extends FragmentActivity {
     
     
     // Fisher-Yates shuffle
-    public void shuffleArray(String [] ar)
+    private void shuffleArray(String [] ar)
     {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--) {

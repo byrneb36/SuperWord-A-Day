@@ -76,6 +76,7 @@ public class TestActivity extends FragmentActivity {
     	}
     	
     	TextView recitalWord = (TextView) findViewById(R.id.textView2);
+        Log.i("WORD TO RECITE", WordViewer.wordArray[wordArrayIndex]);
     	recitalWord.setText(WordViewer.wordArray[wordArrayIndex]);
     	
         speechResult = (TextView) findViewById(R.id.textView1);

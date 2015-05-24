@@ -10,6 +10,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.dcu.superword_a_day.MainMenuActivity"
+            android:name=".MainMenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,31 +33,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.TodaysWords"
+            android:name=".TodaysWords"
             android:label="@string/title_activity_todays_words"
-            android:parentActivityName="com.dcu.superword_a_day.MainMenuActivity" >
+            android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dcu.superword_a_day.MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.FragmentPagerSupport"
-            android:label="@string/title_activity_fragment_pager_support" >
-        </activity>
-        <activity
-            android:name="com.dcu.superword_a_day.WordViewer"
+            android:name=".WordViewer"
             android:label="@string/title_activity_word_viewer" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.OptionsActivity"
+            android:name=".OptionsActivity"
             android:label="@string/title_activity_options" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.WordArchiveActivity"
+            android:name=".WordArchiveActivity"
             android:label="@string/title_activity_word_archive" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.TestActivity"
+            android:name=".TestActivity"
             android:label="@string/title_activity_test"
             android:parentActivityName="android.app.ListActivity" >
             <meta-data
@@ -58,25 +61,30 @@
                 android:value="android.app.ListActivity" />
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.ResultsActivity"
+            android:name=".ResultsActivity"
             android:label="@string/title_activity_results" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.AnalyzeResultsActivity"
+            android:name=".AnalyzeResultsActivity"
             android:label="@string/title_activity_analyze_results" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.AnalyzeResultsDriverActivity"
+            android:name=".AnalyzeResultsDriverActivity"
             android:label="@string/title_activity_analyze_results_driver" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.TodaysRevisionActivity"
-            android:label="@string/title_activity_todays_revision" >
-        </activity>
-        <activity
-            android:name="com.dcu.superword_a_day.WordArchiveDriverActivity"
+            android:name=".WordArchiveDriverActivity"
             android:label="@string/title_activity_word_archive_driver" >
         </activity>
+
+        <service
+            android:name=".UploadIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".DownloadIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

@@ -1,18 +1,33 @@
 package com.dcu.superword_a_day;
 
+import org.apache.commons.io.*;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Calendar;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,14 +39,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 public class TodaysWords extends Activity {
 	
-	private String url = "https://www.wordnik.com/word-of-the-day/";	
+	private String stringURL = "https://www.wordnik.com/word-of-the-day/";
 	private ProgressBar spinner;
 	private int sharedPrefNoOfWords;
 	private String archivePosition;
@@ -134,9 +169,33 @@ public class TodaysWords extends Activity {
         }
         return myLinkedList;
 	}
-	
+
+
+    private void enableSSLSocket() throws KeyManagementException, NoSuchAlgorithmException {
+        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        });
+
+        SSLContext context = SSLContext.getInstance("TLS");
+        context.init(null, new X509TrustManager[]{new X509TrustManager() {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
+            }
+        }}, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+    }
+
 	private class CaptureWord extends AsyncTask<Void, Void, Void> {
 		LinkedList<LinkedList<String>> tempWordData = new LinkedList<LinkedList<String>>();
+        LinkedList<String> scrapedWords = new LinkedList<String>();
 
         @Override
         protected void onPreExecute() {
@@ -156,7 +215,6 @@ public class TodaysWords extends Activity {
    			 
    			String fullDate = "";
  			String newURL = "";
- 			LinkedList<String> scrapedWords = new LinkedList<String>(); 
  			// create as many urls as the number of words the user has chosen to learn per day
    			 for(int i = 0; i < sharedPrefNoOfWords; i++) {
   				startDate.add(Calendar.DAY_OF_MONTH, +1);
@@ -164,10 +222,25 @@ public class TodaysWords extends Activity {
    				fullDate = startDate.get(Calendar.YEAR) + "/" + 
  						(startDate.get(Calendar.MONTH)+1) + "/" + 
  						startDate.get(Calendar.DAY_OF_MONTH);
- 				newURL = url + fullDate;
+ 				newURL = stringURL + fullDate;
  				 System.out.println("syro newURL: " + newURL);
- 				documents[i] = Jsoup.connect(newURL).get();
- 				// Using Elements to get the Meta data
+
+
+                 try {
+                     enableSSLSocket();
+                 } catch (KeyManagementException e) {
+                     e.printStackTrace();
+                 } catch (NoSuchAlgorithmException e) {
+                     e.printStackTrace();
+                 }
+
+                 URLConnection connection = new URL(newURL).openConnection();
+                 InputStream inStream = connection.getInputStream();
+                 String htmlText = org.apache.commons.io.IOUtils.toString(inStream, connection.getContentEncoding());
+
+                 documents[i] = Jsoup.parse(htmlText);
+
+                 // Using Elements to get the Meta data
   	             word = documents[i].select("h1 > a");
   	             source = documents[i].select("h3[class=source]");
   	             senses = documents[i].select("div[class=guts active] li");
@@ -212,10 +285,17 @@ public class TodaysWords extends Activity {
         	LinkedList<LinkedList<String>> tempWordData2 = deepCopy(tempWordData);
         	myWordArchive.saveToArchive(tempWordData2);
         	Log.i("TodaysWords onPostExecute",tempWordData2.toString());
+
+            // starting DownloadIntentService here
+            Intent downloadService = new Intent(getApplicationContext(), DownloadIntentService.class);
+            String[] wordsArr = scrapedWords.toArray(new String[scrapedWords.size()]);
+            // adding the words whose difficulty percentages are to be retrieved from the server
+            downloadService.putExtra("wordsArr", wordsArr);
+            startService(downloadService);
+
         	startWordViewer();
     	    spinner.setVisibility(View.GONE);
         }
     }
-
 }
 

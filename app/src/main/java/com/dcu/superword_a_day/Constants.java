@@ -7,6 +7,7 @@ public final class Constants {
 	public static final String WORD_DATA_FILE = "word_data_file";
 	public static final String REVISION_DATA_FILE = "revision_data_file";
 	public static final String WORD_ARCHIVE_DATA_FILE = "word_archive_data_file";
+    public static final String DIFFICULTY_PERCENTAGES_FILE = "DifficultyPercentagesFile";
 	
 	public static final int SUCCESS_RESULT = 5;
 	

@@ -1,4 +1,6 @@
-C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\classes\debug
-C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-22e1657ce287fba4db16b8eefd82856e5e116baa.jar
-C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-c8f4a868dcdc38616b2332e38a11adadbf32e200.jar
-C:\Users\Brendan\AndroidstudioProjects\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-db3c2c3f9d9e7216b8b63b2d27460bb23f34c355.jar
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\classes\debug
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\robotium-solo-5.3.1-fc0ef81ba528fd7f3761da818db0b09dea5d442e.jar
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-io-2.4-47cb560721256742d85b374eb4bf730a4141eb84.jar
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-34a3a415bd774620d518dd85017b223e0a18f999.jar
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-3622d782600b11b9107e256a63aa252f1edc5ba8.jar
+C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-db3c2c3f9d9e7216b8b63b2d27460bb23f34c355.jar
