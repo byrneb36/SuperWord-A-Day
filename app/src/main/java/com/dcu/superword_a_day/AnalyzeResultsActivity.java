@@ -38,17 +38,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AnalyzeResultsActivity extends Activity {
 	private final int LIMIT_OF_INCORRECT_MATCHES = 4;
-	private String url;
 	private String [] semanticSimilarityResults;
 	private boolean [] userDefinedResults;
 	private String [] wordArray;
+    private TextView semResults2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,9 @@ public class AnalyzeResultsActivity extends Activity {
 		String [] recitalStrings = new String[numberOfWords];
 		semanticSimilarityResults = new String[numberOfWords];
 		userDefinedResults = new boolean[numberOfWords];
-		
+
+        semResults2 = new TextView(this);
+
 		for(int i = 0; i < numberOfWords; i++) {
 			if(testFlag) {
 				definitionStr = testDefinitionsArray[i];
@@ -119,7 +123,7 @@ public class AnalyzeResultsActivity extends Activity {
             recitalTokens = recitalStr.split("\\W");
 
             // creating URL for semantic similarity test
-            url = "http://swoogle.umbc.edu/StsService/GetStsSim?operation=api&phrase1=";
+            String url = "http://swoogle.umbc.edu/StsService/GetStsSim?operation=api&phrase1=";
             for(int j = 0; j < definitionTokens.length; j++) {
             	url = url + definitionTokens[j] + "%20";
             }
@@ -258,6 +262,7 @@ public class AnalyzeResultsActivity extends Activity {
             // semantic similarity test
             Bundle mBundle = new Bundle();
             mBundle.putInt("for loop index", i);
+            mBundle.putString("url", url);
             new SemanticSimilarityService().execute(mBundle);
             
             // saving definition and recital strings to display for the user to do their own comparison
@@ -265,7 +270,7 @@ public class AnalyzeResultsActivity extends Activity {
             recitalStrings[i] = recitalStr;
 		}
 		
-		// displaying the results to the user
+		 // displaying the results to the user
 		 final ListView resultsList = (ListView) findViewById(R.id.resultsList);
 		 String [] results_text = {"Word-by-word comparison: ", "Word-by-word comparison " +
 		 		"(allowing up to 3 missing or superfluous words per matching word): ", "Keyword-by-keyword comparison: ",
@@ -280,12 +285,21 @@ public class AnalyzeResultsActivity extends Activity {
 			 resultsView.setText(results_text[j] + count + "/" + numberOfWords);
 			 resultsList.addFooterView(resultsView);
 		 }
-		 final TextView semResults = new TextView(this);
-		 semResults.setText("Comparison using the UMBC semantic similarity service: ");
+         final TextView semResults1 = new TextView(this);
+         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+         //       RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+         //params.addRule(RelativeLayout.RIGHT_OF, semResults2.getId());
+         //final ProgressBar p = new ProgressBar(this, null,  android.R.attr.progressBarStyleSmall);
+         // semResults1.setVisibility(View.GONE);
+		 semResults1.setText("Comparison using the UMBC semantic similarity service: ");
+         /*
 		 for(int i = 0; i < numberOfWords; i++) {
-			 semResults.append(semanticSimilarityResults[i] + " ");
+			 semResults1.append(semanticSimilarityResults[i] + " ");
 		 }
-		 resultsList.addFooterView(semResults);
+		 */
+		 resultsList.addFooterView(semResults1);
+         resultsList.addFooterView(semResults2);
+
 		 final TextView defAndRecHeading = new TextView(this);
 		 defAndRecHeading.setText("Each word followed by its definition and recital, allowing the user to assess their" +
 		 		" own performance:");
@@ -296,8 +310,8 @@ public class AnalyzeResultsActivity extends Activity {
 			 wordString.setText(wordArray[j]);
 			 wordString.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Large);
 			 final TextView defAndRecStrings = new TextView(this);
-			 defAndRecStrings.setText("Definition " + j + ": " + definitionStrings[j] + "\n" +  
-			 "Recital " + j + ": " + recitalStrings[j]);
+			 defAndRecStrings.setText("Definition " + (j + 1) + ": " + definitionStrings[j] + "\n" +
+			 "Recital " + (j + 1) + ": " + recitalStrings[j]);
 			 resultsList.addFooterView(wordString);
 			 resultsList.addFooterView(defAndRecStrings);
 			 resultsList.addFooterView(addPassFailRadioGroup(j));
@@ -379,14 +393,17 @@ public class AnalyzeResultsActivity extends Activity {
 	
 	
 	private class SemanticSimilarityService extends AsyncTask<Bundle, Void, Void> {
+        private String response = "";
+        private int index;
 
         @Override
         protected Void doInBackground(Bundle... params) {
         	Bundle[] mBundles = params;
-        	int index = mBundles[0].getInt("for loop index");
+        	index = mBundles[0].getInt("for loop index");
+            String url = mBundles[0].getString("url");
+            Log.i("asyncTask url", "url: " + url);
             HttpUriRequest httpRequest = new HttpGet(url);
             HttpResponse httpResponse;
-            String response = "";
 			try {
 				httpResponse = new DefaultHttpClient().execute(httpRequest);
 				response = new BasicResponseHandler().handleResponse(httpResponse);
@@ -396,8 +413,12 @@ public class AnalyzeResultsActivity extends Activity {
 				e.printStackTrace();
 			}
             Log.i("httpResponse", response);
-            semanticSimilarityResults[index] = response;
 	   		return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            semResults2.append("" + (index + 1)  + ": " + response);
         }
 	}
 
