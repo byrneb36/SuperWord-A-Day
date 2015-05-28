@@ -85,6 +85,11 @@
             android:name=".DownloadIntentService"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name=".TestActivityTestDriver"
+            android:label="@string/title_activity_test_activity_test_driver" >
+        </activity>
     </application>
 
 </manifest>

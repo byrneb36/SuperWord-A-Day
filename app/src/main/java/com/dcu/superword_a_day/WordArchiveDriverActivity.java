@@ -58,7 +58,7 @@ public class WordArchiveDriverActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Log.i("WADA", "File file length: " + file.length());
+			Log.i("WADA", "File length: " + file.length());
         }
 		Log.i("WADA Internal Storage", "Internal Storage Files: " + Arrays.toString(fileNames));
 	    File prefsdir = new File(getApplicationInfo().dataDir,"shared_prefs");

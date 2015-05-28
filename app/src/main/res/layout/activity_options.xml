@@ -25,51 +25,13 @@
         android:layout_marginLeft="30dp"
         android:entries="@array/numOfWords" />
 
-    <RadioButton
-        android:id="@+id/radioButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioButton2"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/radioButton2"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton4"
-        android:layout_alignBottom="@+id/radioButton4"
-        android:layout_alignParentLeft="true"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/radioButton3"
-        android:layout_below="@+id/spinner1"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton1"
-        android:layout_alignBottom="@+id/radioButton1"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/radioButton1"
-        android:text="RadioButton" />
-
     <TextView
         android:id="@+id/intervalsOptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/radioButton4"
-        android:layout_below="@+id/radioButton3"
-        android:text="@string/intervals_text" />
+        android:text="@string/intervals_text"
+        android:layout_below="@+id/spinner1" />
 
     <RelativeLayout
         android:id="@+id/revisionLayout1"
@@ -128,7 +90,7 @@
 	        android:layout_alignBaseline="@+id/revision_edit2"
 	        android:layout_alignBottom="@+id/revision_edit2"
             android:text="@string/revision_interval2" />
-	
+
 	    <TextView
 	        android:id="@id/revisionTextDays"
 	        android:layout_width="wrap_content"

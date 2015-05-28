@@ -78,5 +78,16 @@
         android:layout_below="@+id/analyzeResultsTestButton"
         android:onClick="wordArchiveDriver"
         android:text="@string/test_driver_button2" />
+     <!--
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TestActivity Test Driver"
+        android:id="@+id/testActivityDriverButton"
+        android:layout_below="@+id/wordArchiveTestButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/wordArchiveTestButton"
+        android:onClick="testActivityTestDriver"/>
+        -->
 
 </RelativeLayout>

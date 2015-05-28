@@ -23,13 +23,9 @@ public class MainMenuActivity extends Activity {
         }
 
 		mTodaysRevision = new TodaysRevision(this);
-    	mTodaysRevision.loadRevisionIntervals();
-    	// if there are no words to revise, don't show the Today's Revision button
-    	if(mTodaysRevision.retrieveFromWordArchive() == false) {
-    		Button b = (Button) findViewById(R.id.todaysRevisionButton);
-    		b.setVisibility(View.GONE);
-    		Log.i("Main Menu", "Today's Revision button set to GONE");
-    	}
+
+
+        Log.i("MainMenu", "test");
 	}
 	
 	// if the archive is empty, don't show the WordArchive button
@@ -47,6 +43,18 @@ public class MainMenuActivity extends Activity {
     		b.setVisibility(View.VISIBLE);
     		Log.i("Main Menu", "Word Archive button set to VISIBLE");
 		}
+
+        // if there are no words to revise, don't show the Today's Revision button
+        mTodaysRevision.loadRevisionIntervals();
+        Button b2 = (Button) findViewById(R.id.todaysRevisionButton);
+        if(mTodaysRevision.retrieveFromWordArchive() == false) {
+            b2.setVisibility(View.GONE);
+            Log.i("Main Menu", "Today's Revision button set to GONE");
+        }
+        else {
+            b2.setVisibility(View.VISIBLE);
+            Log.i("Main Menu", "Today's Revision button set to VISIBLE");
+        }
 				
 	}
 
@@ -85,5 +93,11 @@ public class MainMenuActivity extends Activity {
     	Intent intent = new Intent(this, WordArchiveDriverActivity.class);
     	startActivity(intent);
     }
+    /*
+    public void testActivityTestDriver(View view) {
+        Intent intent = new Intent(this, TestActivityTestDriver.class);
+        startActivity(intent);
+    }
+    */
 
 }

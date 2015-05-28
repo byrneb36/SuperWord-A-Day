@@ -37,7 +37,7 @@
     <string name="speak">Speak Now</string>
     <string name="word_alternatives">Choose An Alternative</string>
     <string name="submit_all">Submit All</string>
-    <string name="word_archive_test1">Test Case 1</string>
+    <string name="word_archive_test1">Populate Word Archive</string>
     <string name="analyze_results_driver_test2">Test Case 2</string>
 
     <string-array name="numOfWords">
@@ -70,5 +70,8 @@
     <string name="title_activity_analyze_results_driver">AnalyzeResultsDriverActivity</string>
     <string name="title_activity_todays_revision">TodaysRevisionActivity</string>
     <string name="title_activity_word_archive_driver">WordArchiveDriverActivity</string>
+    <string name="title_activity_test_activity_test_driver">TestActivityTestDriver</string>
+    <string name="test_case_3">Test Case 3</string>
+    <string name="test_case_4">Test Case 4</string>
 
 </resources>

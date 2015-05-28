@@ -143,12 +143,21 @@ public class AnalyzeResultsActivity extends Activity {
     		Boolean word_by_wordA = true, word_by_wordB = null;
     		
     		// doing the word_by_wordA test first
-    		for(int j = 0; j < definitionTokens.length; j++) {
-            	if(!definitionTokens[j].equals(recitalTokens[j])) {
-            			word_by_wordA = false;
-            			break;
-            	}
-    		}
+            // if their lengths don't match, they can't be exact matches
+            if(recitalTokens.length != definitionTokens.length) {
+                Log.i("word by word A NOT AN EXACT LENGTH MATCH", "definitionTokens length: " + definitionTokens.length +
+                        " recitalTokens length: " + recitalTokens.length);
+                word_by_wordA = false;
+            }
+            else {
+                for(int j = 0; (j < definitionTokens.length); j++) {
+                    if(!definitionTokens[j].equals(recitalTokens[j])) {
+                        word_by_wordA = false;
+                        break;
+                    }
+                }
+            }
+
     		
     		// the word_by_wordB test
     		int definitionTokensIndex = 0, recitalTokensIndex = 0;

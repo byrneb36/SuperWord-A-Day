@@ -101,8 +101,7 @@ public class MyFragment extends Fragment {
         View tv = my_fragment_view.findViewById(R.id.text1);
         
     	final SlidingDrawer s = (SlidingDrawer) my_fragment_view.findViewById(R.id.slidingDrawer1);	
-    	
-        ((TextView)tv).setText("Fragment #" + mNum);
+
     	LinkedList<String> wordAndDefinition;
 		LinkedList<LinkedList<String>> temp = null;
     	try {
@@ -115,6 +114,9 @@ public class MyFragment extends Fragment {
         	System.out.println("FILE READ EXCEPTION");
     		e.printStackTrace();
     	}
+
+        ((TextView)tv).setText("" + mNum);
+        //+ "/" + temp.size());
 
         /******************* checking to see if the difficulty percentages have already been saved *********************/
         if((Constants.SOURCE_TODAYS_WORDS).equals(mSource)) {

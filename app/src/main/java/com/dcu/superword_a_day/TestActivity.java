@@ -38,7 +38,7 @@ public class TestActivity extends FragmentActivity {
 
  
     private ImageButton speakButton;
-    private TextView speechResult;
+    //private TextView speechResult;
     private String textOfRecital = "null";
     private String [][] newTokensWithAlternatives;
     private ArrayList<String [][]> allRecitalsWithAlternatives;
@@ -79,7 +79,7 @@ public class TestActivity extends FragmentActivity {
         Log.i("WORD TO RECITE", WordViewer.wordArray[wordArrayIndex]);
     	recitalWord.setText(WordViewer.wordArray[wordArrayIndex]);
     	
-        speechResult = (TextView) findViewById(R.id.textView1);
+        //speechResult = (TextView) findViewById(R.id.textView1);
  
         speakButton = (ImageButton) findViewById(R.id.speakButton);
  
@@ -94,7 +94,7 @@ public class TestActivity extends FragmentActivity {
  
                 try {
                     startActivityForResult(intent, Constants.RESULT_SPEECH);
-                    speechResult.setText("");
+                    //speechResult.setText("");
 
                 } catch (ActivityNotFoundException a) {
                     Toast t = Toast.makeText(getApplicationContext(),
