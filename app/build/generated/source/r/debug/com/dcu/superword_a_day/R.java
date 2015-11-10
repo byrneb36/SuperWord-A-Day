@@ -37,6 +37,7 @@ public final class R {
         public static final int handle=0x7f0a0026;
         public static final int handle2=0x7f0a0030;
         public static final int intervalsOptionText=0x7f0a000f;
+        public static final int numToLearnSpinner=0x7f0a000e;
         public static final int optionsButton=0x7f0a0008;
         public static final int optionsText1=0x7f0a000d;
         public static final int pager=0x7f0a0005;
@@ -62,7 +63,6 @@ public final class R {
         public static final int slidingDrawer2=0x7f0a002e;
         public static final int source1=0x7f0a0028;
         public static final int speakButton=0x7f0a0020;
-        public static final int spinner1=0x7f0a000e;
         public static final int testButton1=0x7f0a0002;
         public static final int testButton2=0x7f0a0001;
         public static final int testButton3=0x7f0a0003;

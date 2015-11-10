@@ -55,7 +55,7 @@ public class OptionsActivity extends Activity implements OnItemSelectedListener{
 	    
 	    //applySaved();
 		
-		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		Spinner spinner = (Spinner) findViewById(R.id.numToLearnSpinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         		R.array.numOfWords, android.R.layout.simple_spinner_item);

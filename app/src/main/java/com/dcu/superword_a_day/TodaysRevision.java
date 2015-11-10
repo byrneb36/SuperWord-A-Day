@@ -55,6 +55,8 @@ public class TodaysRevision {
             	}
             	else
             		Log.i("TodaysRevision", "revision interval " + i + " loads no words");
+                // resetting 'cal' to the current date for the next iteration
+                cal.add(Calendar.DAY_OF_MONTH, revisionIntervals[i]);
         	}    		
         	else
         		Log.i("TodaysRevision interval", "interval " + i + " is equal to zero");
