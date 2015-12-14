@@ -27,8 +27,7 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 public class MyFragment extends Fragment {
-    int mNum;
-    private String file_name1;
+    private int mNum;
     private String mSource;
     private View my_fragment_view;
     private String thisFragmentsWord;
@@ -83,15 +82,6 @@ public class MyFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
         mSource = getArguments().getString("source");
-        if((Constants.SOURCE_WORD_ARCHIVE_ACTIVITY).equals(mSource))
-        	file_name1 = Constants.WORD_ARCHIVE_DATA_FILE;
-        else if((Constants.SOURCE_TODAYS_REVISION).equals(mSource)) 
-        	file_name1 = Constants.REVISION_DATA_FILE;
-        else if((Constants.SOURCE_TODAYS_WORDS).equals(mSource))
-        	file_name1 = Constants.WORD_DATA_FILE;
-        else
-        	Log.i("MyFragment", "SOURCE NOT RECOGNIZED");
-        Log.i("MyFragment onCreate file_name1: ", file_name1);
     }
     
     @Override
@@ -103,17 +93,6 @@ public class MyFragment extends Fragment {
     	final SlidingDrawer s = (SlidingDrawer) my_fragment_view.findViewById(R.id.slidingDrawer1);	
 
     	LinkedList<String> wordAndDefinition;
-		LinkedList<LinkedList<String>> temp = null;
-    	try {
-			FileInputStream fis = getActivity().getApplicationContext().openFileInput(file_name1);
-			ObjectInputStream in = new ObjectInputStream(fis);
-	        temp = (LinkedList<LinkedList<String>>)in.readObject();
-	        fis.close();
-	        in.close();
-    	} catch (Exception e){
-        	System.out.println("FILE READ EXCEPTION");
-    		e.printStackTrace();
-    	}
 
         ((TextView)tv).setText("" + mNum);
         //+ "/" + temp.size());
@@ -122,7 +101,7 @@ public class MyFragment extends Fragment {
         if((Constants.SOURCE_TODAYS_WORDS).equals(mSource)) {
             Log.i("MyFragment", "inside diff perc check");
             if(WordViewer.percentages_received_flag == true) {
-                displayPercentage(temp);
+                displayPercentage(WordViewer.wordsAndDefinitionsList);
             }
             else {
                 // otherwise, try registering the broadcast receiver
@@ -140,7 +119,7 @@ public class MyFragment extends Fragment {
             Log.i("MyFragment", "diff perc check: source not today's words");
             File f = new File("/data/data/com.dcu.superword_a_day/shared_prefs/" + Constants.DIFFICULTY_PERCENTAGES_FILE + ".xml");
             if(f.exists()) {
-                displayPercentage(temp);
+                displayPercentage(WordViewer.wordsAndDefinitionsList);
             }
             else {
                 // otherwise, just remove the progress bar
@@ -151,7 +130,7 @@ public class MyFragment extends Fragment {
 
         /***************************************************************************************************************/
 
-    	wordAndDefinition = temp.get(mNum);
+    	wordAndDefinition = WordViewer.wordsAndDefinitionsList.get(mNum);
         
         if(wordAndDefinition != null) {
 	        TextView word = (TextView) my_fragment_view.findViewById(R.id.word1);

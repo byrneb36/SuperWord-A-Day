@@ -24,6 +24,7 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.ms-square:expandableTextView:0.1.4'
     compile files('libs/commons-lang3-3.3.2.jar')
     compile files('libs/commons-io-2.4.jar')
     compile files('libs/jsoup-1.7.3.jar')

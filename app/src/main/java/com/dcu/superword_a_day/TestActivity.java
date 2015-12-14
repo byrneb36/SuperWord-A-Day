@@ -120,7 +120,7 @@ public class TestActivity extends FragmentActivity {
         switch (requestCode) {
         case Constants.RESULT_SPEECH: {
             if (resultCode == RESULT_OK && null != data) {
-                String originalDefinition = WordViewer.wordAndDefinitions.get(WordViewer.wordArray[wordArrayIndex]);
+                String originalDefinition = WordViewer.wordsAndDefinitionsMap.get(WordViewer.wordArray[wordArrayIndex]);
                 String [] tempOriginalTokens = originalDefinition.split("\\W");
                 ArrayList<String> tempArrayListOfTokens = new ArrayList<String>();
                 System.out.println("syro tempOriginalTokens: ");

@@ -111,7 +111,7 @@ public class AnalyzeResultsActivity extends Activity {
 				recitalStr = testRecitalsArray[i];
 			}
 			else {
-				definitionStr = WordViewer.wordAndDefinitions.get(WordViewer.wordArray[i]);
+				definitionStr = WordViewer.wordsAndDefinitionsMap.get(WordViewer.wordArray[i]);
 				temp = ResultsActivity.allRecitalsWithAlternatives.get(i);
 				
 	            for(int j = 0; j < temp.length; j++) {
@@ -328,7 +328,7 @@ public class AnalyzeResultsActivity extends Activity {
 
         // adding a submit button that returns the user to the main menu screen and uploads test results to the database
         Button submit = new Button(this);
-        submit.setText("Submit");
+        submit.setText(getString(R.string.results_button_text));
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -338,6 +338,8 @@ public class AnalyzeResultsActivity extends Activity {
                 // saving the words the user has failed so that they can be highlighted in WordArchiveActivity
                 SharedPreferences failedWordsStore = getSharedPreferences(Constants.FAILED_WORDS_FILE, MODE_PRIVATE);
                 HashSet<String> failedWords = new HashSet<String>();
+                failedWords = (HashSet<String>) failedWordsStore.getStringSet("failedWords", failedWords);
+                Log.i("ARA", "Failed words BEFORE NEW ADDITIONS: " + failedWords.toString());
                 for(int i = 0; i < userDefinedResults.length; i++) {
                     if(!userDefinedResults[i]) {
                         uploadData.add(wordArray[i]);
@@ -345,7 +347,7 @@ public class AnalyzeResultsActivity extends Activity {
                         failedWords.add(wordArray[i]);
                     }
                 }
-                Log.i("ARA", "Failed words: " + failedWords.toString());
+                Log.i("ARA", "Failed words AFTER NEW ADDITIONS: " + failedWords.toString());
                 SharedPreferences.Editor editor = failedWordsStore.edit();
                 editor.putStringSet("failedWords", failedWords);
                 editor.commit();

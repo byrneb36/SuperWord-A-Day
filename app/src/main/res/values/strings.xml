@@ -26,8 +26,9 @@
     <string name="one_hundred_and_sixty_eight">168</string>
     <string name="title_activity_todays_words">TodaysWords</string>
     <string name="hello_world">Hello world!</string>
-    <string name="button_text">Take the test!</string>
-    <string name="TextView">Text View</string>
+    <string name="button_text">Start test</string>
+    <string name="self_test_submit">Submit all</string>
+    <string name="TextView">Placeholder text</string>
     <string name="source">Source</string>
     <string name="definition">Definition</string>
     <string name="handle_drawable">Drawable handle</string>
@@ -39,6 +40,9 @@
     <string name="submit_all">Submit All</string>
     <string name="word_archive_test1">Populate Word Archive</string>
     <string name="analyze_results_driver_test2">Test Case 2</string>
+    <string name="set_test_type">Set the test type:</string>
+    <string name="self_test_definition">Definition:</string>
+    <string name="self_test_results_text">Your score: </string>
 
     <string-array name="numOfWords">
         <item>1</item>
@@ -62,6 +66,11 @@
         <item>19</item>
         <item>20</item>
     </string-array>
+    <string-array name="testTypes">
+        <item>self test</item>
+        <item>semantic matching quiz</item>
+        <item>spoken recital</item>
+    </string-array>
 
     <string name="title_activity_word_archive">WordArchiveActivity</string>
     <string name="title_activity_test">TestActivity</string>
@@ -73,5 +82,9 @@
     <string name="title_activity_test_activity_test_driver">TestActivityTestDriver</string>
     <string name="test_case_3">Test Case 3</string>
     <string name="test_case_4">Test Case 4</string>
+    <string name="title_activity_self_test">SelfTestActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_self_test_results">SelfTestResultsActivity</string>
+    <string name="results_button_text">Main menu</string>
 
 </resources>
