@@ -23,10 +23,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Calendar;
+import java.util.TreeMap;
 
 
 import android.app.Activity;
@@ -139,7 +142,7 @@ public class TodaysWords extends Activity {
 	    return result;
 	}
 	
-	private void addToWordData(LinkedList<LinkedList<String>> w) throws IOException {
+	private void addToWordData(LinkedList<TreeMap> w) throws IOException {
 		FileOutputStream fos = openFileOutput(Constants.WORD_DATA_FILE, Context.MODE_PRIVATE);
         ObjectOutputStream out = new ObjectOutputStream(fos);
         out.writeObject(w);
@@ -194,7 +197,8 @@ public class TodaysWords extends Activity {
     }
 
 	private class CaptureWord extends AsyncTask<Void, Void, Void> {
-		LinkedList<LinkedList<String>> tempWordData = new LinkedList<LinkedList<String>>();
+        LinkedList<LinkedList<String>> wordsAndDefinitionsList = new LinkedList<LinkedList<String>>();
+        LinkedList<TreeMap> fullWordDataList = new LinkedList<TreeMap>();
         LinkedList<String> scrapedWords = new LinkedList<String>();
 
         @Override
@@ -209,9 +213,10 @@ public class TodaysWords extends Activity {
    		 try {
              // Connect to the web site
    			 Document [] documents = new Document[sharedPrefNoOfWords];
-   			 Elements word, source, senses;
-   			 LinkedList<String> newWordData;
-   			 ListIterator<Element> sense;
+             Elements word, definitionSources, both, definitions, examples, exampleSources, origin;
+             TreeMap fullWordData = new TreeMap();
+             LinkedList<String> newWordData;
+             ListIterator<Element> sense;
    			 
    			String fullDate = "";
  			String newURL = "";
@@ -240,12 +245,25 @@ public class TodaysWords extends Activity {
 
                  documents[i] = Jsoup.parse(htmlText);
 
-                 // Using Elements to get the Meta data
-  	             word = documents[i].select("h1 > a");
-  	             source = documents[i].select("h3[class=source]");
-  	             senses = documents[i].select("div[class=guts active] li");
-   	  		  	 
-   	             System.out.println("syro -1: " + word.text());
+                 word = documents[i].select("h1 > a");
+                 // Returns 0 or more sources
+                 both = documents[i].select("div[class=guts active] *");
+                 definitionSources = documents[i].select("h3[class=source]");
+                 definitions = documents[i].select("div[class=guts active] li");
+                 examples = documents[i].select("div[class=word-module module-examples] li p[class=text]");
+                 exampleSources = documents[i].select("div[class=word-module module-examples] li p[class=source]");
+                 origin = documents[i].select("div[data-name=notes].word-module p");
+
+
+                 Log.i("TodaysWords", " word: " + word.text());
+                 Log.i("TodaysWords", " both: " + both.text());
+                 Log.i("TodaysWords", " definitionSources (size: " + definitionSources.size() + "): "
+                         + definitionSources.text());
+                 Log.i("TodaysWords", " definitions: " + definitions.text());
+                 Log.i("TodaysWords", " examples: " + examples.text());
+                 Log.i("TodaysWords", " exampleSources: " + exampleSources.text());
+                 Log.i("TodaysWords", " origin: " + origin.text());
+
    	             if(scrapedWords.contains(word.text()) || checkForDuplicates(word.text())) {
    	            	 Log.i("TAG", "REPEATING ITERATION");
    	            	 // repeat for loop iteration
@@ -253,18 +271,63 @@ public class TodaysWords extends Activity {
    	             }
    	             // if there are no duplicates, add the new word & definition
    	             else {
+                     int incNum = 0;
+                     int senseNum = 1;
+
+                     ////////////////////////////////////////////////////
    	            	 Log.i("TodaysWords", "WORD: " + word.text() + " added.");
    	            	 scrapedWords.add(word.text());
-	   	   			 newWordData = new LinkedList<String>();
-	   	             newWordData.add(word.text());
-	   	             newWordData.add(source.text());
-	   	             
-	   	             sense = senses.listIterator();
-	   	             
-	   	             while(sense.hasNext()) {
-	   	            	 newWordData.add(sense.next().text());
-	   	             }
-	   	             tempWordData.add(newWordData);
+
+                     newWordData = new LinkedList<String>();
+                     newWordData.add(word.text());
+                     sense = definitions.listIterator();
+
+                     while(sense.hasNext()) {
+                         newWordData.add(sense.next().text());
+                     }
+                     wordsAndDefinitionsList.add(newWordData);
+                     ////////////////////////////////////////////////////////////
+
+                     fullWordData = new TreeMap();
+
+                     fullWordData.put("word", word.text());
+                     // assumes that either all definitions have sources or none of them do
+                     for(Element e : both) {
+                         if(definitionSources.contains(e)) {
+                             incNum++;
+                             senseNum = 1; // resets for new definition following source
+                             if(definitionSources.hasText()) {
+                                 fullWordData.put("definitionSource" + incNum, e.text());
+                                 Log.i("Main", "source: " + e.text());
+                             }
+                             else {
+                                 Log.i("Main", "empty source");
+                             }
+                         }
+                         // definitions are named "definition1-1, definition1-2, definition2-3, etc.
+                         else if(definitions.contains(e)) {
+                             fullWordData.put("definition" + incNum + "-" + senseNum, e.text());
+                             Log.i("Main", "definition: " + e.text());
+                             senseNum++;
+                         }
+                     }
+                     // assumes each source corresponds to just one example
+                     incNum = 1;
+                     Iterator exIter = examples.iterator();
+                     Element nextElement, nextSource;
+                     while(exIter.hasNext()) {
+                         nextSource = exampleSources.get(incNum-1);
+                         if(nextSource.hasText() && (!"undefined".equals(nextSource.text())))
+                             fullWordData.put("exampleSource" + incNum, nextSource.text());
+                         nextElement = (Element) exIter.next();
+                         fullWordData.put("example" + incNum, nextElement.text());
+                         incNum++;
+                     }
+                     if(origin.hasText())
+                         fullWordData.put("origin", origin.text());
+
+                     Log.i("MainActivity", "FULL WORD DATA: " + fullWordData.toString());
+	   	             fullWordDataList.add(fullWordData);
    	             }
    			 }          
          } catch (IOException e) {
@@ -277,15 +340,20 @@ public class TodaysWords extends Activity {
         protected void onPostExecute(Void result) {
         	WordArchive myWordArchive = new WordArchive(getApplicationContext());
         	try {
-				addToWordData(tempWordData);
+				addToWordData(fullWordDataList);
 			} catch (IOException e) {
 				Log.i("TodaysWords", "ADD TO WORD DATA FAILED");
 				e.printStackTrace();
 			}
-        	LinkedList<LinkedList<String>> tempWordData2 = deepCopy(tempWordData);
-        	myWordArchive.saveToArchive(tempWordData2);
-        	Log.i("TodaysWords onPostExecute",tempWordData2.toString());
 
+            LinkedList<LinkedList<String>> wordsAndDefinitionsList2 = deepCopy(wordsAndDefinitionsList);
+
+        	// saving to fullWordDataList to WordArchive after the user has left TodaysWords & MyFragment, etc.
+
+        	myWordArchive.saveToArchive(wordsAndDefinitionsList2);
+
+        	Log.i("TodaysWords onPostExecute", wordsAndDefinitionsList2.toString());
+            // *NOT IN MASTER BRANCH*
             // starting DownloadIntentService here
             Intent downloadService = new Intent(getApplicationContext(), DownloadIntentService.class);
             String[] wordsArr = scrapedWords.toArray(new String[scrapedWords.size()]);
