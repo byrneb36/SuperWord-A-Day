@@ -36,32 +36,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.dcu.superword_a_day" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53f96590-6ede-424d-85fa-8ae3fbd7ca1c" name="Default" comment="Test new branch&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_5.xml" />
-      <change type="DELETED" beforePath="C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\dex\debug\classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-c8f4a868dcdc38616b2332e38a11adadbf32e200.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-22e1657ce287fba4db16b8eefd82856e5e116baa.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-db3c2c3f9d9e7216b8b63b2d27460bb23f34c355.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\tmp\dex\debug\inputList.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/AnalyzeResultsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/AnalyzeResultsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/MainMenuActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/MainMenuActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/OptionsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/OptionsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/dcu/superword_a_day/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/dcu/superword_a_day/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/SelfTestActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/SelfTestActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TestActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TestActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TodaysRevision.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TodaysRevision.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TodaysWords.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/TodaysWords.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordArchive.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordArchive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordArchiveActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordArchiveActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordViewer.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/WordViewer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_options.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_options.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_fragment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="53f96590-6ede-424d-85fa-8ae3fbd7ca1c" name="Default" comment="Test new branch&#10;" />
     <ignored path="SuperWord-A-Day.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -121,7 +96,7 @@
       <file leaf-file-name="MyFragment.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/MyFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5403226" vertical-offset="1804" max-vertical-offset="4012">
+            <state vertical-scroll-proportion="0.23971377" vertical-offset="1804" max-vertical-offset="4012">
               <caret line="145" column="7" selection-start-line="145" selection-start-column="7" selection-end-line="145" selection-end-column="7" />
               <folding />
             </state>
@@ -1813,7 +1788,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30153322" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1824,7 +1799,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19080068" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22012103" sideWeight="0.5010571" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6105442" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.52981263" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52981263" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60988075" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5010571" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6269165" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
@@ -2348,7 +2323,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dcu/superword_a_day/MyFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5403226" vertical-offset="1804" max-vertical-offset="4012">
+        <state vertical-scroll-proportion="0.23971377" vertical-offset="1804" max-vertical-offset="4012">
           <caret line="145" column="7" selection-start-line="145" selection-start-column="7" selection-end-line="145" selection-end-column="7" />
           <folding />
         </state>
