@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.dcu.superword_a_day.SelfTestFragment">
+
+    <SlidingDrawer
+        android:id="@+id/selfTestSlidingDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:visibility="invisible"
+        android:topOffset="320dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"> <!-- prevents handle from opening all the way to the top -->
+
+        <ImageView
+            android:id="@+id/handle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="@string/handle_drawable"
+            android:src="@drawable/tray_handle_normal"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="@string/self_test_submit"
+            android:onClick="showResults" />
+    </SlidingDrawer>
+
+    <TextView
+        android:layout_width="244dp"
+        android:layout_height="53dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Word"
+        android:id="@+id/word2"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_below="@+id/fragmentNumView"
+        android:layout_alignParentLeft="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don&apos;t know"
+        android:id="@+id/selfTestCheckbox"
+        android:checked="false"
+        android:layout_below="@+id/fragmentNumView"
+        android:layout_toRightOf="@+id/word2"
+        android:layout_alignBottom="@+id/word2"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Fragment Num"
+        android:id="@+id/fragmentNumView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/word2"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/sample1"
+            layout="@layout/text_item" />
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/Brendan/Dropbox/SuperWord-A-Day/app/src/main/res/layout/fragment_self_test.xml -->

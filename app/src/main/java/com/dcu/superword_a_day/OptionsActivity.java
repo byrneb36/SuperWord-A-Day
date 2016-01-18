@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,10 +18,13 @@ import android.widget.Toast;
 public class OptionsActivity extends Activity implements OnItemSelectedListener {
     private int numOfWordsPerDay = -1;
     private int testType = -1;
+    // default revision intervals:
     private int firstRevisionInterval = 1;
     private int secondRevisionInterval = 7;
     private int thirdRevisionInterval = 28;
     private int fourthRevisionInterval = 168;
+
+    private boolean revisionSkipCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,13 @@ public class OptionsActivity extends Activity implements OnItemSelectedListener 
         SharedPreferences settings = getSharedPreferences(Constants.OPTIONS_FILE, MODE_PRIVATE);
         numOfWordsPerDay = settings.getInt("numOfWordsPerDay", -1);
         testType = settings.getInt("testType", -1);
+        revisionSkipCheckbox = settings.getBoolean("revisionSkipCheckbox", false);
+
+        CheckBox checkbox_revision_skip = (CheckBox) findViewById(R.id.options_revision_skip_checkbox);
+        if(revisionSkipCheckbox)
+            checkbox_revision_skip.setChecked(true);
+
+
         temp = settings.getInt("firstRevisionInterval", -1);
         if(temp != -1) {
             firstRevisionInterval = temp;
@@ -183,6 +194,19 @@ public class OptionsActivity extends Activity implements OnItemSelectedListener 
                 }
             }
         }
+
+        checkbox_revision_skip.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    revisionSkipCheckbox = true;
+                }
+                else
+                    revisionSkipCheckbox = false;
+
+            }
+        });
     }
 
     public void applySaved() {
@@ -220,6 +244,8 @@ public class OptionsActivity extends Activity implements OnItemSelectedListener 
 
         Log.i("revision intervals", "" + first_interval + " " + second_interval + " " + third_interval +
                 " " + fourth_interval);
+
+        editor.putBoolean("revisionSkipCheckbox", revisionSkipCheckbox);
         editor.commit();
 
         Context context = getApplicationContext();

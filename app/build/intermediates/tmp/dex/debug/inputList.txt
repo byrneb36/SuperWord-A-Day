@@ -1,8 +1,0 @@
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\classes\debug
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.0-8744d1165243ef6bfc2bd87f15288e34e15754f7.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\classes-270bae227eb3372a4f0f4ccf6e30f742a41216e9.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\robotium-solo-5.3.1-fc0ef81ba528fd7f3761da818db0b09dea5d442e.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-io-2.4-47cb560721256742d85b374eb4bf730a4141eb84.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-34a3a415bd774620d518dd85017b223e0a18f999.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-3622d782600b11b9107e256a63aa252f1edc5ba8.jar
-C:\Users\Brendan\Dropbox\SuperWord-A-Day\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-db3c2c3f9d9e7216b8b63b2d27460bb23f34c355.jar

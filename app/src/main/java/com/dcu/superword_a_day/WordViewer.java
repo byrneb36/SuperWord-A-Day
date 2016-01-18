@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Random;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,8 +28,8 @@ public class WordViewer extends FragmentActivity {
     // checked by MyFragment to see if the broadcast receiver has already received the word percentages
     public static Boolean percentages_received_flag = false;
 
-    public static HashMap<String, String> wordsAndDefinitionsMap;
-    public static LinkedList<LinkedList<String>> wordsAndDefinitionsList = null;
+    public static HashMap<String, TreeMap> wordsAndDefinitionsMap;
+    public static LinkedList<TreeMap> fullWordDataList = null;
     public static String [] wordArray;
     MyAdapter mAdapter;
     ViewPager mPager;
@@ -63,7 +66,7 @@ public class WordViewer extends FragmentActivity {
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput(source_file);
             ObjectInputStream in = new ObjectInputStream(fis);
-            wordsAndDefinitionsList = (LinkedList<LinkedList<String>>)in.readObject();
+            fullWordDataList = (LinkedList<TreeMap>)in.readObject();
             fis.close();
             in.close();
         } catch (Exception e){
@@ -76,7 +79,6 @@ public class WordViewer extends FragmentActivity {
 
     
     public void startTest(View view) {
-    	// reducing wordArray to the size of sharedPrefNoOfWords
     	SharedPreferences settings = getSharedPreferences(Constants.OPTIONS_FILE, MODE_PRIVATE);
 	    int sharedPrefNoOfWords = settings.getInt("numOfWordsPerDay", -1);
         int testType = settings.getInt("testType", -1);
@@ -84,16 +86,19 @@ public class WordViewer extends FragmentActivity {
     		wordArray = new String[sharedPrefNoOfWords];
     	}
     	else {
-       	 	wordArray = new String[wordsAndDefinitionsList.size()];
+       	 	wordArray = new String[fullWordDataList.size()];
     	}
     	Log.i("WordViewer sharedPrefNoOfWords: ", "" + sharedPrefNoOfWords);
-    	wordsAndDefinitionsMap = new HashMap<String, String> ();
+    	wordsAndDefinitionsMap = new HashMap<String, TreeMap> ();
+        TreeMap definitions;
     	for(int i = 0; i < wordArray.length; i++) {
-        	wordArray[i] = wordsAndDefinitionsList.get(i).get(0);
-        	String definitions = "";
+        	wordArray[i] = (String) fullWordDataList.get(i).get("word");
+            definitions = (TreeMap) getByPrefix(fullWordDataList.get(i), "definitionSense");
+            /*
             for(int j = 2; j < wordsAndDefinitionsList.get(i).size(); j++) {
             	definitions = definitions + wordsAndDefinitionsList.get(i).get(j).toString();
             }
+            */
             wordsAndDefinitionsMap.put(wordArray[i], definitions);
     	}
     	Log.i("Word Array", Arrays.toString(wordArray));
@@ -115,5 +120,20 @@ public class WordViewer extends FragmentActivity {
 
     	//intent.putExtra("word array", wordArray);
     	startActivity(intent);
+    }
+
+    public static String createDefinitionString(String word) {
+        TreeMap fullWordData = WordViewer.wordsAndDefinitionsMap.get(word);
+        SortedMap wordDefs = WordViewer.getByPrefix(fullWordData, "definitionSense");
+        String definition = "";
+        while(!wordDefs.isEmpty()) {
+            definition = definition + wordDefs.remove(wordDefs.firstKey()) + " ";
+        }
+        Log.i("ARA", "convertToString definition: " + definition);
+        return definition;
+    }
+
+    private static SortedMap<String, Object> getByPrefix(NavigableMap<String, Object> myMap, String prefix) {
+        return myMap.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 }

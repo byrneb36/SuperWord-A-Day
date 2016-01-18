@@ -8,9 +8,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NavigableSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -104,14 +108,16 @@ public class AnalyzeResultsActivity extends Activity {
 		userDefinedResults = new boolean[numberOfWords];
 
         semResults2 = new TextView(this);
-
+        TreeMap fullWordData;
+        SortedMap wordDefinitions;
 		for(int i = 0; i < numberOfWords; i++) {
 			if(testFlag) {
 				definitionStr = testDefinitionsArray[i];
 				recitalStr = testRecitalsArray[i];
 			}
 			else {
-				definitionStr = WordViewer.wordsAndDefinitionsMap.get(WordViewer.wordArray[i]);
+                definitionStr = WordViewer.createDefinitionString(WordViewer.wordArray[i]);
+				// definitionStr = WordViewer.wordsAndDefinitionsMap.get(WordViewer.wordArray[i]);
 				temp = ResultsActivity.allRecitalsWithAlternatives.get(i);
 				
 	            for(int j = 0; j < temp.length; j++) {
@@ -401,8 +407,7 @@ public class AnalyzeResultsActivity extends Activity {
          });
 		 return passFailGroup;
 	}
-	
-	
+
 	private class SemanticSimilarityService extends AsyncTask<Bundle, Void, Void> {
         private String response = "";
         private int index;

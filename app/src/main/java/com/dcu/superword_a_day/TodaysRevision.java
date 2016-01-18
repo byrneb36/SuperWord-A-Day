@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +19,8 @@ import android.util.Log;
 public class TodaysRevision {
 	private Context c;
     private int firstRevisionInterval, secondRevisionInterval, thirdRevisionInterval, fourthRevisionInterval;
-    private LinkedList<LinkedList<String>> wordsAndDefinitions;
-    private LinkedList<LinkedList<String>> tempWordsAndDefinitions;
+    private LinkedList<TreeMap> fullWordDataList;
+    private LinkedList<TreeMap> tempFullWordDataList;
     
 	public TodaysRevision (Context c) {
 		this.c = c;
@@ -41,17 +42,17 @@ public class TodaysRevision {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
     	Calendar cal = GregorianCalendar.getInstance();
     	Log.i("RFWA today's date", dateFormat.format(cal.getTime()));
-    	wordsAndDefinitions = new LinkedList<LinkedList<String>>();
-    	tempWordsAndDefinitions = new LinkedList<LinkedList<String>>();
+    	fullWordDataList = new LinkedList<TreeMap>();
+    	tempFullWordDataList = new LinkedList<TreeMap>();
     	for(int i = 0; i < revisionIntervals.length; i++) {
         	if(revisionIntervals[i] != 0) {
             	cal.add(Calendar.DAY_OF_MONTH, -revisionIntervals[i]);
             	Log.i("RFWA revision date number: " + i, dateFormat.format(cal.getTime()));
-            	tempWordsAndDefinitions = mWordArchive.loadFromArchive(dateFormat.format(cal.getTime()));
-    			Log.i("TodaysRevision", "tempWordsAndDefinitions.toString: " + tempWordsAndDefinitions.toString());
-            	if(!tempWordsAndDefinitions.isEmpty()) {
+                tempFullWordDataList = mWordArchive.loadFromArchive(dateFormat.format(cal.getTime()));
+    			Log.i("TodaysRevision", "tempFullWordDataList.toString: " + tempFullWordDataList.toString());
+            	if(!tempFullWordDataList.isEmpty()) {
             		revisionWordsAvailable = true;
-            		appendToWordsAndDefinitions(tempWordsAndDefinitions);
+            		appendToWordsAndDefinitions(tempFullWordDataList);
             	}
             	else
             		Log.i("TodaysRevision", "revision interval " + i + " loads no words");
@@ -63,7 +64,7 @@ public class TodaysRevision {
     	}
 		if(revisionWordsAvailable) {
 			// save those words for use by WordViewer
-			Log.i("TodaysRevision", "WordsAndDefinitions.toString: " + wordsAndDefinitions.toString());
+			Log.i("TodaysRevision", "WordsAndDefinitions.toString: " + fullWordDataList.toString());
 			FileOutputStream fos;
 			try {
 				File file = new File("/data/data/com.dcu.superword_a_day/shared_prefs/" + Constants.REVISION_DATA_FILE
@@ -74,7 +75,7 @@ public class TodaysRevision {
 				}
 				fos = c.openFileOutput(Constants.REVISION_DATA_FILE, 0);
 		        ObjectOutputStream out = new ObjectOutputStream(fos);
-		        out.writeObject(wordsAndDefinitions);
+		        out.writeObject(fullWordDataList);
 		        out.flush();
 		        out.close();	
 			} catch (IOException e) {
@@ -91,15 +92,15 @@ public class TodaysRevision {
     public void startWordViewer() {
     	Intent intent = new Intent(c, WordViewer.class);
     	intent.putExtra("source", Constants.SOURCE_TODAYS_REVISION);
-    	intent.putExtra("numOfWords", wordsAndDefinitions.size());
+    	intent.putExtra("numOfWords", fullWordDataList.size());
     	c.startActivity(intent);
     }
     
     // appends to wordsAndDefinitions new 2D LinkedLists of words & definitions loaded from Word Archive
-    private void appendToWordsAndDefinitions(LinkedList<LinkedList<String>> toAppend) {
+    private void appendToWordsAndDefinitions(LinkedList<TreeMap> toAppend) {
     	Iterator it = toAppend.iterator();
     	while(it.hasNext()) {
-    		wordsAndDefinitions.add((LinkedList<String>) it.next());
+    		fullWordDataList.add((TreeMap) it.next());
     	}
     }
 }

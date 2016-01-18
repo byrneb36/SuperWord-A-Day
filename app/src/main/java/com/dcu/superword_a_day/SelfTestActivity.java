@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,12 @@ public class SelfTestActivity extends FragmentActivity {
         // The ultimate source is either TodaysWords or TodaysRevision. Can also be started by WordViewer.
         Intent startingIntent = getIntent();
         String source_file = startingIntent.getStringExtra("source_file");
+        if((Constants.SOURCE_TODAYS_REVISION).equals(source_file))
+            source_file = Constants.REVISION_DATA_FILE;
+        else if((Constants.SOURCE_TODAYS_WORDS).equals(source_file))
+            source_file = Constants.WORD_DATA_FILE;
+        else
+            Log.i("WordViewer", "SOURCE NOT RECOGNIZED");
 
         try {
             FileInputStream fis = this.getApplicationContext().openFileInput(source_file);

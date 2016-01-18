@@ -150,8 +150,8 @@ public class TodaysWords extends Activity {
         out.close();
 	}
 	
-	private LinkedList<LinkedList<String>> deepCopy(LinkedList<LinkedList<String>> orig) {
-		LinkedList<LinkedList<String>> myLinkedList = null;
+	private LinkedList<TreeMap> deepCopy(LinkedList<TreeMap> orig) {
+        LinkedList<TreeMap> myLinkedList = null;
         try {
             // Write the object out to a byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -161,7 +161,7 @@ public class TodaysWords extends Activity {
             out.close();
 
             ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-            myLinkedList = (LinkedList<LinkedList<String>>)in.readObject();
+            myLinkedList = (LinkedList<TreeMap>)in.readObject();
             in.close();
         }
         catch(IOException e) {
@@ -197,7 +197,6 @@ public class TodaysWords extends Activity {
     }
 
 	private class CaptureWord extends AsyncTask<Void, Void, Void> {
-        LinkedList<LinkedList<String>> wordsAndDefinitionsList = new LinkedList<LinkedList<String>>();
         LinkedList<TreeMap> fullWordDataList = new LinkedList<TreeMap>();
         LinkedList<String> scrapedWords = new LinkedList<String>();
 
@@ -213,14 +212,12 @@ public class TodaysWords extends Activity {
    		 try {
              // Connect to the web site
    			 Document [] documents = new Document[sharedPrefNoOfWords];
-             Elements word, definitionSources, both, definitions, examples, exampleSources, origin;
+             Elements word, definitionSources, both, definitionSenses, examples, exampleSources, origin;
              TreeMap fullWordData = new TreeMap();
-             LinkedList<String> newWordData;
-             ListIterator<Element> sense;
    			 
-   			String fullDate = "";
- 			String newURL = "";
- 			// create as many urls as the number of words the user has chosen to learn per day
+   			 String fullDate = "";
+ 			 String newURL = "";
+ 			 // create as many urls as the number of words the user has chosen to learn per day
    			 for(int i = 0; i < sharedPrefNoOfWords; i++) {
   				startDate.add(Calendar.DAY_OF_MONTH, +1);
    				 // creating new URL
@@ -249,7 +246,7 @@ public class TodaysWords extends Activity {
                  // Returns 0 or more sources
                  both = documents[i].select("div[class=guts active] *");
                  definitionSources = documents[i].select("h3[class=source]");
-                 definitions = documents[i].select("div[class=guts active] li");
+                 definitionSenses = documents[i].select("div[class=guts active] li");
                  examples = documents[i].select("div[class=word-module module-examples] li p[class=text]");
                  exampleSources = documents[i].select("div[class=word-module module-examples] li p[class=source]");
                  origin = documents[i].select("div[data-name=notes].word-module p");
@@ -259,7 +256,7 @@ public class TodaysWords extends Activity {
                  Log.i("TodaysWords", " both: " + both.text());
                  Log.i("TodaysWords", " definitionSources (size: " + definitionSources.size() + "): "
                          + definitionSources.text());
-                 Log.i("TodaysWords", " definitions: " + definitions.text());
+                 Log.i("TodaysWords", " definitionSenses: " + definitionSenses.text());
                  Log.i("TodaysWords", " examples: " + examples.text());
                  Log.i("TodaysWords", " exampleSources: " + exampleSources.text());
                  Log.i("TodaysWords", " origin: " + origin.text());
@@ -274,20 +271,8 @@ public class TodaysWords extends Activity {
                      int incNum = 0;
                      int senseNum = 1;
 
-                     ////////////////////////////////////////////////////
    	            	 Log.i("TodaysWords", "WORD: " + word.text() + " added.");
    	            	 scrapedWords.add(word.text());
-
-                     newWordData = new LinkedList<String>();
-                     newWordData.add(word.text());
-                     sense = definitions.listIterator();
-
-                     while(sense.hasNext()) {
-                         newWordData.add(sense.next().text());
-                     }
-                     wordsAndDefinitionsList.add(newWordData);
-                     ////////////////////////////////////////////////////////////
-
                      fullWordData = new TreeMap();
 
                      fullWordData.put("word", word.text());
@@ -298,16 +283,16 @@ public class TodaysWords extends Activity {
                              senseNum = 1; // resets for new definition following source
                              if(definitionSources.hasText()) {
                                  fullWordData.put("definitionSource" + incNum, e.text());
-                                 Log.i("Main", "source: " + e.text());
+                                 Log.i("TodaysWords", "source: " + e.text());
                              }
                              else {
-                                 Log.i("Main", "empty source");
+                                 Log.i("TodaysWords", "empty source");
                              }
                          }
-                         // definitions are named "definition1-1, definition1-2, definition2-3, etc.
-                         else if(definitions.contains(e)) {
-                             fullWordData.put("definition" + incNum + "-" + senseNum, e.text());
-                             Log.i("Main", "definition: " + e.text());
+                         // definitions are named "definitionSense1-1, definitionSense1-2, definitionSense2-3, etc.
+                         else if(definitionSenses.contains(e)) {
+                             fullWordData.put("definitionSense" + incNum + "-" + senseNum, e.text());
+                             Log.i("TodaysWords", "definitionSense: " + e.text());
                              senseNum++;
                          }
                      }
@@ -326,9 +311,9 @@ public class TodaysWords extends Activity {
                      if(origin.hasText())
                          fullWordData.put("origin", origin.text());
 
-                     Log.i("MainActivity", "FULL WORD DATA: " + fullWordData.toString());
-	   	             fullWordDataList.add(fullWordData);
+                     Log.i("TodaysWords", "FULL WORD DATA: " + fullWordData.toString());
    	             }
+                 fullWordDataList.add(fullWordData);
    			 }          
          } catch (IOException e) {
              e.printStackTrace();
@@ -346,14 +331,13 @@ public class TodaysWords extends Activity {
 				e.printStackTrace();
 			}
 
-            LinkedList<LinkedList<String>> wordsAndDefinitionsList2 = deepCopy(wordsAndDefinitionsList);
+            LinkedList<TreeMap> fullWordDataList2 = deepCopy(fullWordDataList);
 
         	// saving to fullWordDataList to WordArchive after the user has left TodaysWords & MyFragment, etc.
 
-        	myWordArchive.saveToArchive(wordsAndDefinitionsList2);
+        	myWordArchive.saveToArchive(fullWordDataList2);
 
-        	Log.i("TodaysWords onPostExecute", wordsAndDefinitionsList2.toString());
-            // *NOT IN MASTER BRANCH*
+        	Log.i("TodaysWords onPostExecute", fullWordDataList2.toString());
             // starting DownloadIntentService here
             Intent downloadService = new Intent(getApplicationContext(), DownloadIntentService.class);
             String[] wordsArr = scrapedWords.toArray(new String[scrapedWords.size()]);

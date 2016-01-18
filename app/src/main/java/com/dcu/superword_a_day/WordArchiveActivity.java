@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -40,7 +41,8 @@ public class WordArchiveActivity extends ListActivity {
 
   	@Override
   	protected void onListItemClick(ListView l, View v, int position, long id) {
-  		LinkedList<LinkedList<String>> wordsAndDefinitions = new LinkedList<LinkedList<String>>();
+  		//LinkedList<LinkedList<String>> wordsAndDefinitions = new LinkedList<LinkedList<String>>();
+        LinkedList<TreeMap> fullWordDataList = new LinkedList<TreeMap>();
   		// finding the date that the selected word falls under
   		int itemViewPosition = position;
   		String dateOfSelectedWord;
@@ -58,11 +60,11 @@ public class WordArchiveActivity extends ListActivity {
   		dateOfSelectedWord = l.getItemAtPosition(itemViewPosition).toString();
   		Log.i("WAA ListItemClick", "List Item Click: " + l.getItemAtPosition(position).toString() + " Date of selected: "
   				+ dateOfSelectedWord);
-  		// loading all words and definitions for this date from the archive
+  		// loading all word data for this date from the archive
   		WordArchive mWordArchive = new WordArchive(this);
-  		wordsAndDefinitions = mWordArchive.loadFromArchive(dateOfSelectedWord);
+  		fullWordDataList = mWordArchive.loadFromArchive(dateOfSelectedWord);
   		// saving to internal storage
-		Log.i("WAA", "WordsAndDefinitions.toString: " + wordsAndDefinitions.toString());
+		Log.i("WAA", "fullWordDataList.toString: " + fullWordDataList.toString());
 		Log.i("WAA Files Dir Path", "Files Dir Path: " + this.getFilesDir().getPath());
 		FileOutputStream fos;
 		try {
@@ -78,7 +80,7 @@ public class WordArchiveActivity extends ListActivity {
 			}
 			fos = this.openFileOutput(Constants.WORD_ARCHIVE_DATA_FILE, 0);
 	        ObjectOutputStream out = new ObjectOutputStream(fos);
-	        out.writeObject(wordsAndDefinitions);
+	        out.writeObject(fullWordDataList);
 	        out.flush();
 	        out.close();	
 		} catch (IOException e) {
@@ -86,7 +88,7 @@ public class WordArchiveActivity extends ListActivity {
 		}
     	Intent intent = new Intent(this, WordViewer.class);
     	intent.putExtra("source", Constants.SOURCE_WORD_ARCHIVE_ACTIVITY);
-    	intent.putExtra("numOfWords", wordsAndDefinitions.size());
+    	intent.putExtra("numOfWords", fullWordDataList.size());
     	intent.putExtra("itemPosition", relativeItemPosition);
     	startActivity(intent);
   	}

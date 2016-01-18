@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -71,7 +72,15 @@ public class MainMenuActivity extends Activity {
     }
     
     public void todaysRevision(View view) {
-    	mTodaysRevision.startWordViewer();
+        SharedPreferences settings = getSharedPreferences(Constants.OPTIONS_FILE, MODE_PRIVATE);
+        boolean revisionSkipCheckbox = settings.getBoolean("revisionSkipCheckbox", false);
+        if(revisionSkipCheckbox) {
+            Intent intent = new Intent(this, SelfTestActivity.class);
+            intent.putExtra("source_file", Constants.SOURCE_TODAYS_REVISION);
+            startActivity(intent);
+        }
+        else
+            mTodaysRevision.startWordViewer();
     }
     
     public void wordArchive(View view) {

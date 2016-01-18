@@ -33,48 +33,112 @@
     </SlidingDrawer>
 
     <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Word"
+        android:id="@+id/wordText"
         android:layout_alignParentTop="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/hello_world"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@+id/word1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/text1"
-        android:text="@string/TextView"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Pronunciation"
+        android:id="@+id/pronunciationText"
+        android:layout_below="@+id/wordText"
+        android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@+id/source1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/word1"
-        android:text="@string/source"
-        android:textStyle="italic" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Definition 1"
+        android:id="@+id/definition1Text"
+        android:layout_below="@+id/pronunciationText"
+        android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@+id/definition1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/source1" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Definition 2"
+        android:id="@+id/definition2Text"
+        android:layout_below="@+id/definitionSource1Text"
+        android:layout_alignRight="@+id/definition1Text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Example 1"
+        android:id="@+id/example1Text"
+        android:layout_below="@+id/definitionSource2Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Example 2"
+        android:id="@+id/example2Text"
+        android:layout_below="@+id/exampleSource1Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Origin"
+        android:id="@+id/originText"
+        android:layout_below="@+id/exampleSource2Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Definition 1 Source"
+        android:id="@+id/definitionSource1Text"
+        android:layout_below="@+id/definition1Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Definition 2 Source"
+        android:id="@+id/definitionSource2Text"
+        android:layout_below="@+id/definition2Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Example 1 Source"
+        android:id="@+id/exampleSource1Text"
+        android:layout_below="@+id/example1Text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Example 2 Source"
+        android:id="@+id/exampleSource2Text"
+        android:layout_below="@+id/example2Text"
+        android:layout_alignParentLeft="true" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/percentageLoadingBar"
-        android:layout_below="@+id/text1"
         android:layout_alignParentRight="true"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_below="@+id/originText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,9 +146,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Perc Text"
         android:id="@+id/percentageTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/word1"
-        android:layout_below="@+id/text1"
+        android:layout_below="@+id/originText"
+        android:layout_toLeftOf="@+id/percentageLoadingBar"
         android:visibility="gone" />
 
 </RelativeLayout>

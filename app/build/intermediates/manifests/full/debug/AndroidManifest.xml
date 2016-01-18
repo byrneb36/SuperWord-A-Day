@@ -10,6 +10,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -32,10 +39,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dcu.superword_a_day.MainMenuActivity" />
-        </activity>
-        <activity
-            android:name="com.dcu.superword_a_day.FragmentPagerSupport"
-            android:label="@string/title_activity_fragment_pager_support" >
         </activity>
         <activity
             android:name="com.dcu.superword_a_day.WordViewer"
@@ -70,12 +73,30 @@
             android:label="@string/title_activity_analyze_results_driver" >
         </activity>
         <activity
-            android:name="com.dcu.superword_a_day.TodaysRevisionActivity"
-            android:label="@string/title_activity_todays_revision" >
-        </activity>
-        <activity
             android:name="com.dcu.superword_a_day.WordArchiveDriverActivity"
             android:label="@string/title_activity_word_archive_driver" >
+        </activity>
+
+        <service
+            android:name="com.dcu.superword_a_day.UploadIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name="com.dcu.superword_a_day.DownloadIntentService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name="com.dcu.superword_a_day.TestActivityTestDriver"
+            android:label="@string/title_activity_test_activity_test_driver" >
+        </activity>
+        <activity
+            android:name="com.dcu.superword_a_day.SelfTestActivity"
+            android:label="@string/title_activity_self_test" >
+        </activity>
+        <activity
+            android:name="com.dcu.superword_a_day.SelfTestResultsActivity"
+            android:label="@string/title_activity_self_test_results" >
         </activity>
     </application>
 

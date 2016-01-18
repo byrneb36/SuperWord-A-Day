@@ -9,12 +9,12 @@
         android:id="@+id/slidingDrawer1"     
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:content="@+id/content"
         android:handle="@+id/handle"
         android:visibility="invisible"
-        android:topOffset="320dp" > <!-- prevents handle from opening all the way to the top -->
+        android:topOffset="320dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"> <!-- prevents handle from opening all the way to the top -->
 
         <ImageView
             android:id="@+id/handle"
@@ -66,5 +66,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/source1" />
-  
-</RelativeLayout><!-- From: file:/C:/Users/Brendan/AndroidstudioProjects/SuperWord-A-Day/app/src/main/res/layout/fragment_my_fragment.xml -->
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/percentageLoadingBar"
+        android:layout_below="@+id/text1"
+        android:layout_alignParentRight="true"
+        android:visibility="visible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Perc Text"
+        android:id="@+id/percentageTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/word1"
+        android:layout_below="@+id/text1"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/C:/Users/Brendan/Dropbox/SuperWord-A-Day/app/src/main/res/layout/fragment_my_fragment.xml -->

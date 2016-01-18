@@ -209,4 +209,13 @@
         android:layout_below="@+id/revisionLayout4"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/revisionLayout4" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/options_revision_skip_text"
+        android:id="@+id/options_revision_skip_checkbox"
+        android:checked="false"
+        android:layout_below="@+id/testTypeSpinner"
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>

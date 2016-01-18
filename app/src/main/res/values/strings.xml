@@ -19,6 +19,8 @@
     <string name="revision_interval3">Third revision after</string>
     <string name="revision_interval4">Fourth revision after</string>
     <string name="revision_text_days">day(s).</string>
+    <string name="options_revision_skip_text">Today\'s Revision: Skip review &amp; go to test</string>
+
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="seven">7</string>
